@@ -8,6 +8,27 @@ body {
     color: var(--colors-text);
 }
 
+code {
+    display: inline-block;
+    width: fit-content;
+    height: fit-content;
+    padding: 0;
+    margin: 0;
+    background-color: var(--colors-selected);
+    border-radius: 8px;
+    white-space: pre;
+    vertical-align: middle;
+    overflow-x: auto;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+code.block {
+    padding: 8px;
+    margin: 0;
+    width: 100%;
+}
+
 .Clickable {
     cursor: pointer;
     user-select: none;

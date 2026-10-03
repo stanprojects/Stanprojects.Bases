@@ -6,7 +6,6 @@ const Colors = Object.freeze({
 
 const BaseEncoding = Object.freeze({
     Base16: 'base16',
-    Base32: 'base32',
     Base64: 'base64',
 });
 
@@ -14,12 +13,13 @@ let _colors = undefined
 let _baseEncoding = undefined
 const baseEncodings = [
     BaseEncoding.Base16,
-    BaseEncoding.Base32,
     BaseEncoding.Base64,
 ]
 
 const ColorsSwitch = document.getElementById('ColorsSwitch')
 const BaseEncodings = document.getElementById('BaseEncodings')
+const TextInput = document.getElementById('TextInput')
+const BaseEncoded = document.getElementById('BaseEncoded')
 
 function colorsOf(name) {
     return Object.values(Colors).includes(name) ? name : Colors.Dark;
@@ -27,6 +27,10 @@ function colorsOf(name) {
 
 function baseEncodingOf(name) {
     return Object.values(BaseEncoding).includes(name) ? name : BaseEncoding.Base16;
+}
+
+function toByteArray(text) {
+    return new TextEncoder().encode(text)
 }
 
 function renderColors(colors) {
@@ -43,7 +47,7 @@ function renderBaseEncoding(baseEncoding) {
     BaseEncodings.querySelectorAll('.BaseEncoding').forEach((it) => {
         it.classList.toggle('selected', it.dataset.id === baseEncoding)
     })
-    // todo
+    onText(TextInput.value)
 }
 
 function getState({ colors = _colors, baseEncoding = _baseEncoding } = {}) {
@@ -102,8 +106,23 @@ window.addEventListener('popstate', () => {
     onPopState()
 })
 
+let indices = 0
+
 function onText(text) {
-    // todo
+    const index = ++indices
+    const bytes = toByteArray(text)
+    let baseEncoded
+    switch (_baseEncoding) {
+        case BaseEncoding.Base16:
+            baseEncoded = bytes.toHex()
+            break
+        case BaseEncoding.Base64:
+            baseEncoded = bytes.toBase64()
+            break
+        default: throw new Error(`Encoding: ${_baseEncoding} is not supported!`)
+    }
+    if (index !== indices) return
+    BaseEncoded.textContent = baseEncoded
 }
 
 TextInput.addEventListener('input', () => {
