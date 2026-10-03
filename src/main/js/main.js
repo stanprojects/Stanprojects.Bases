@@ -38,6 +38,14 @@ function toByteArray(text) {
     return new TextEncoder().encode(text)
 }
 
+function byteToHex(byte) {
+    return byte.toString(16).padStart(2, '0')
+}
+
+function bytesToHex(bytes) {
+    return Array.from(new Uint8Array(bytes)).map(byteToHex).join('')
+}
+
 function renderColors(colors) {
     _colors = colors
     ColorsSwitch.textContent = colors
@@ -119,7 +127,7 @@ function onText(text) {
     let baseEncoded
     switch (_baseEncoding) {
         case BaseEncoding.Base16:
-            baseEncoded = bytes.toHex()
+            baseEncoded = bytesToHex(bytes)
             break
         case BaseEncoding.Base32:
             baseEncoded = base32.encode(text)
