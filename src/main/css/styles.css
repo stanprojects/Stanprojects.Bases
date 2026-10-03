@@ -87,6 +87,15 @@ code.block {
     background-color: var(--colors-textfield);
 }
 
+.BaseEncoded {
+    height: auto;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    min-height: calc(1lh + 16px);
+    max-height: calc(10lh + 16px);
+    overflow-y: auto;
+}
+
 .CopyButton {
     padding: 8px 16px;
     border-radius: 8px;
