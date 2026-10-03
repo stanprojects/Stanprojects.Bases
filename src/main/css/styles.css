@@ -1,0 +1,9 @@
+
+html {
+    font-family: 'JetBrains Mono', monospace;
+}
+
+body {
+    background-color: var(--colors-background);
+    color: var(--colors-text);
+}
