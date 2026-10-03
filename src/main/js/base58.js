@@ -1,3 +1,9 @@
+
+/**
+ * Base58 implementation adapted from base58-js by pur3miish:
+ * https://github.com/pur3miish/base58-js
+ */
+
 const base58_chars = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
 
 const create_base58_map = () => {
