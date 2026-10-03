@@ -102,6 +102,14 @@ window.addEventListener('popstate', () => {
     onPopState()
 })
 
+function onText(text) {
+    // todo
+}
+
+TextInput.addEventListener('input', () => {
+    onText(TextInput.value)
+})
+
 initBaseEncodings(baseEncodings)
 
 onPopState()
