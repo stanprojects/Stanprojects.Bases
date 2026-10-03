@@ -7,6 +7,7 @@ const Colors = Object.freeze({
 const BaseEncoding = Object.freeze({
     Base16: 'base16',
     Base32: 'base32',
+    Base58: 'base58',
     Base64: 'base64',
 });
 
@@ -15,6 +16,7 @@ let _baseEncoding = undefined
 const baseEncodings = [
     BaseEncoding.Base16,
     BaseEncoding.Base32,
+    BaseEncoding.Base58,
     BaseEncoding.Base64,
 ]
 
@@ -121,6 +123,9 @@ function onText(text) {
             break
         case BaseEncoding.Base32:
             baseEncoded = base32.encode(text)
+            break
+        case BaseEncoding.Base58:
+            baseEncoded = base58(bytes)
             break
         case BaseEncoding.Base64:
             baseEncoded = bytes.toBase64()
