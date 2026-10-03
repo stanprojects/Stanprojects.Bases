@@ -1,0 +1,29 @@
+
+html {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background-color: transparent;
+  -webkit-tap-highlight-color: transparent;
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 1.0;
+  letter-spacing: 0;
+  text-align: start;
+  visibility: visible;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background-color: transparent;
+  scrollbar-width: none;
+  scrollbar-color: #00000000 #00000000;
+}
