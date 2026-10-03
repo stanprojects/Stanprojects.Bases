@@ -7,3 +7,32 @@ body {
     background-color: var(--colors-background);
     color: var(--colors-text);
 }
+
+.Clickable {
+    cursor: pointer;
+    user-select: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .Clickable:hover {
+        background-color: var(--colors-focused);
+    }
+}
+
+.Clickable:active {
+    background-color: var(--colors-pressed);
+}
+
+.ColorsSwitch {
+    padding: 8px 16px;
+    border-radius: 8px;
+}
+
+.ModuleTitle {
+    display: block;
+    font-weight: 700;
+    padding: 0 16px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
