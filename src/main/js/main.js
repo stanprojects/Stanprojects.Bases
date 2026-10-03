@@ -130,7 +130,7 @@ function onText(text) {
             baseEncoded = bytesToHex(bytes)
             break
         case BaseEncoding.Base32:
-            baseEncoded = base32.encode(text)
+            baseEncoded = base32.encode(bytes)
             break
         case BaseEncoding.Base58:
             baseEncoded = base58(bytes)
