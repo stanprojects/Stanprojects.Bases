@@ -4,12 +4,29 @@ const Colors = Object.freeze({
     Light: 'light',
 });
 
+const BaseEncoding = Object.freeze({
+    Base16: 'base16',
+    Base32: 'base32',
+    Base64: 'base64',
+});
+
 let _colors = undefined
+let _baseEncoding = undefined
+const baseEncodings = [
+    BaseEncoding.Base16,
+    BaseEncoding.Base32,
+    BaseEncoding.Base64,
+]
 
 const ColorsSwitch = document.getElementById('ColorsSwitch')
+const BaseEncodings = document.getElementById('BaseEncodings')
 
 function colorsOf(name) {
     return Object.values(Colors).includes(name) ? name : Colors.Dark;
+}
+
+function baseEncodingOf(name) {
+    return Object.values(BaseEncoding).includes(name) ? name : BaseEncoding.Base16;
 }
 
 function renderColors(colors) {
@@ -21,15 +38,26 @@ function renderColors(colors) {
         : './src/main/svg/favicon_light.svg'
 }
 
-function getState({ colors = _colors } = {}) {
-    return `#colors=${colors}`
+function renderBaseEncoding(baseEncoding) {
+    _baseEncoding = baseEncoding
+    BaseEncodings.querySelectorAll('.BaseEncoding').forEach((it) => {
+        it.classList.toggle('selected', it.dataset.id === baseEncoding)
+    })
+    // todo
 }
 
-function onStateChange({ colors = _colors }, needsToPush = false) {
+function getState({ colors = _colors, baseEncoding = _baseEncoding } = {}) {
+    return `#colors=${colors}&be=${baseEncoding}`
+}
+
+function onStateChange({ colors = _colors, baseEncoding = _baseEncoding }, needsToPush = false) {
     if (_colors !== colors) {
         renderColors(colors)
     }
-    const expected = getState({ colors: colors })
+    if (_baseEncoding !== baseEncoding) {
+        renderBaseEncoding(baseEncoding)
+    }
+    const expected = getState({ colors: colors, baseEncoding: baseEncoding })
     if (location.hash !== expected) {
         if (needsToPush) {
             history.pushState(null, '', expected)
@@ -42,7 +70,19 @@ function onStateChange({ colors = _colors }, needsToPush = false) {
 function onPopState() {
     const params = new URLSearchParams(location.hash.slice(1))
     const colors = colorsOf(params.get('colors'))
-    onStateChange({ colors: colors })
+    const baseEncoding = baseEncodingOf(params.get('be'))
+    onStateChange({ colors: colors, baseEncoding: baseEncoding })
+}
+
+function initBaseEncodings(baseEncodings) {
+    BaseEncodings.replaceChildren()
+    for (const baseEncoding of baseEncodings) {
+        const it = document.createElement('div')
+        it.dataset.id = baseEncoding
+        it.className = 'Box Clickable BaseEncoding'
+        it.textContent = baseEncoding
+        BaseEncodings.appendChild(it)
+    }
 }
 
 ColorsSwitch.addEventListener('click', () => {
@@ -50,8 +90,18 @@ ColorsSwitch.addEventListener('click', () => {
     onStateChange({ colors: colors })
 })
 
+BaseEncodings.addEventListener('click', (event) => {
+    const it = event.target.closest('.BaseEncoding')
+    if (!it) return
+    if (_baseEncoding !== it.dataset.id) {
+        onStateChange({ baseEncoding: baseEncodingOf(it.dataset.id) })
+    }
+})
+
 window.addEventListener('popstate', () => {
     onPopState()
 })
+
+initBaseEncodings(baseEncodings)
 
 onPopState()

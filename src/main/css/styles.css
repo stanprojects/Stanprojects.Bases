@@ -36,3 +36,26 @@ body {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+.BaseEncodings {
+    padding: 16px;
+    flex-direction: row;
+    gap: 8px;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+}
+
+.BaseEncodings > * {
+    flex-shrink: 0;
+}
+
+.BaseEncoding {
+    padding: 8px 16px;
+    border-radius: 8px;
+}
+
+.BaseEncoding.selected {
+    background-color: var(--colors-selected);
+    color: var(--colors-primary);
+    cursor: auto;
+}
