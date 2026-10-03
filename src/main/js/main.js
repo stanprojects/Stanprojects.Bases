@@ -20,6 +20,7 @@ const ColorsSwitch = document.getElementById('ColorsSwitch')
 const BaseEncodings = document.getElementById('BaseEncodings')
 const TextInput = document.getElementById('TextInput')
 const BaseEncoded = document.getElementById('BaseEncoded')
+const CopyButton = document.getElementById('CopyButton')
 
 function colorsOf(name) {
     return Object.values(Colors).includes(name) ? name : Colors.Dark;
@@ -127,6 +128,14 @@ function onText(text) {
 
 TextInput.addEventListener('input', () => {
     onText(TextInput.value)
+})
+
+CopyButton.addEventListener('click', () => {
+    try {
+        navigator.clipboard.writeText(BaseEncoded.textContent)
+    } catch (error) {
+        // ignored
+    }
 })
 
 initBaseEncodings(baseEncodings)
